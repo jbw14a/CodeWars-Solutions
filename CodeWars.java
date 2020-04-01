@@ -1,12 +1,41 @@
 import java.lang.ref.Cleaner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CodeWars {
 
     public static void main(String[] args) {
-        
-        System.out.println(digitalRoot(942));
+        String[] art = new String[]{"ABAR 200", "CDXE 500", "BKWR 250", "BTSQ 890", "DRTY 600"};
+    	String[] cd = new String[] {"A", "B"};
+        System.out.println(stockSummary(art, cd));
     }
 
+    public static String stockSummary(String[] lstOfArt, String[] lstOf1stLetter) {
+        // Help the bookseller!
+        if(lstOfArt.length == 0 || lstOf1stLetter.length == 0)
+            return "";
+        
+        HashMap<String, Integer> result = new HashMap();
+
+        for(String letter : lstOf1stLetter){
+            int count = 0;
+            for(String code : lstOfArt){
+                if(letter.equals(String.valueOf(code.charAt(0)))){
+                    count += Integer.parseInt(code.substring(5, code.length()));
+                    result.put(letter, count);
+                }
+            }
+            count = 0;
+        }
+        
+        String resultString = "";
+        for(Map.Entry<String, Integer> pair: result.entrySet()){
+            resultString += "(" + pair.getKey() + " : " + pair.getValue().toString() + ") - ";
+        }
+        resultString = resultString.substring(0, resultString.length()-3);
+        return resultString;
+    }
+    
     public static int digitalRoot(int n) {
         String input = Integer.toString(n);
         
