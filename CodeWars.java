@@ -17,17 +17,20 @@ public class CodeWars {
         
         HashMap<String, Integer> result = new HashMap();
 
+        //Populate the result hashmap: firstLetter -> quantity
         for(String letter : lstOf1stLetter){
             int count = 0;
+            result.put(letter, count);
             for(String code : lstOfArt){
                 if(letter.equals(String.valueOf(code.charAt(0)))){
-                    count += Integer.parseInt(code.substring(5, code.length()));
-                    result.put(letter, count);
+                    count += Integer.parseInt(code.replaceAll("[^0-9]", "")); // regex: replace everything that's not a number (^) with ""
+                    result.replace(letter, count);
                 }
             }
-            count = 0;
+            count = 0; // restart counter after each letter in lstOf1stLetter
         }
         
+        // Populate a string (that will be returned) based off of hashmap values
         String resultString = "";
         for(Map.Entry<String, Integer> pair: result.entrySet()){
             resultString += "(" + pair.getKey() + " : " + pair.getValue().toString() + ") - ";
